@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
-                GameObject square = Instantiate(Cube, new Vector3(-10, 0), Quaternion.identity);
+                GameObject square = Instantiate(Cube, new Vector3(-15, 0), Quaternion.identity);
                 square.transform.parent = cubesParent.transform;
                 spawn = "left";
                 
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
-                GameObject square = Instantiate(Cube, new Vector3(10, 0), Quaternion.identity);
+                GameObject square = Instantiate(Cube, new Vector3(15, 0), Quaternion.identity);
                 square.transform.parent = cubesParent.transform;
                 spawn = "right";
                

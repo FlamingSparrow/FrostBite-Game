@@ -117,6 +117,14 @@ public class MoveSquare : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "enemy")
+        {
+            Manager.GetComponent<GameManager>().gameOver = true;
+        }
+    }
+
     IEnumerator becomeKinematic()
     {
         yield return new WaitForSeconds(0.5f);
