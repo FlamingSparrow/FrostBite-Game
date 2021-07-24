@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("GameOver");
                 Cursor.lockState = CursorLockMode.Locked;
-                GameOverCanvas.gameObject.SetActive(true);
+                SceneManager.LoadScene(SceneManager.sceneCount - 1);
             }
         }
     }

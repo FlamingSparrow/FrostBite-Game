@@ -13,6 +13,7 @@ public class MoveSquare : MonoBehaviour
 
     GameObject Manager;
     bool finished = false;
+    bool dead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -123,14 +124,8 @@ public class MoveSquare : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "enemy")
-        {
-            Manager.GetComponent<GameManager>().GameOver = true;
-        }
-        
-    }
+    
+
 
     private IEnumerator OnTriggerStay2D(Collider2D collision)
     {
@@ -141,7 +136,7 @@ public class MoveSquare : MonoBehaviour
             if (finished)
             {
                 print("Finsih");
-                if (SceneManager.sceneCount - 1 >= SceneManager.GetActiveScene().buildIndex + 1)
+                if (SceneManager.sceneCount - 2 >= SceneManager.GetActiveScene().buildIndex + 1)
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 }
@@ -153,6 +148,17 @@ public class MoveSquare : MonoBehaviour
             
 
         }
+
+        if (collision.tag == "enemy")
+        {
+            dead = true;
+            yield return new WaitForSeconds(0.5f);
+            if (dead)
+            {
+                Manager.GetComponent<GameManager>().GameOver = true;
+            }
+            
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -160,6 +166,10 @@ public class MoveSquare : MonoBehaviour
         if (collision.tag == "Finish")
         {
             finished = false;
+        }
+        if (collision.tag == "enemy")
+        {
+            dead = false;
         }
     }
     IEnumerator becomeKinematic()
