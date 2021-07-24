@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -33,8 +34,11 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         CheckMovement();
-        allBoxes = GameObject.FindGameObjectsWithTag("Player");
         blockScore.text = "Score: " + blockCount;
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     private void CheckMovement()
@@ -48,7 +52,7 @@ public class GameManager : MonoBehaviour
                 spawn = "up";
                 
                 AheadTime = Time.time + 1f;
-
+                allBoxes = GameObject.FindGameObjectsWithTag("Player");
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
@@ -57,6 +61,7 @@ public class GameManager : MonoBehaviour
                 spawn = "left";
                 
                 AheadTime = Time.time + 1f;
+                allBoxes = GameObject.FindGameObjectsWithTag("Player");
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -65,6 +70,7 @@ public class GameManager : MonoBehaviour
                 spawn = "down";
                 
                 AheadTime = Time.time + 1f;
+                allBoxes = GameObject.FindGameObjectsWithTag("Player");
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
@@ -73,6 +79,7 @@ public class GameManager : MonoBehaviour
                 spawn = "right";
                
                 AheadTime = Time.time + 1f;
+                allBoxes = GameObject.FindGameObjectsWithTag("Player");
             }
             
         }

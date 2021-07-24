@@ -51,7 +51,6 @@ public class MoveSquare : MonoBehaviour
             spawn = "left";
         }
         */
-        Debug.Log(spawn);
 
         if (spawn.Equals("up") && beforeHit)
         {
@@ -102,6 +101,8 @@ public class MoveSquare : MonoBehaviour
                 Manager.GetComponent<GameManager>().cubesParent.transform.position +=new Vector3(1,0,0);
                 Manager.GetComponent<GameManager>().blockCount += 1;
             }
+
+            Manager.GetComponent<AudioSource>().Play();
         }
 
         StartCoroutine(becomeKinematic());
