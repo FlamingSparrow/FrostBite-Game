@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     public string set = "";
 
+    public int xval = 13;
+    public int yval = 7;
     /// <summary>
     /// To be implemented later
     /// </summary>
@@ -114,34 +116,34 @@ public class GameManager : MonoBehaviour
                 Vector2Int roundedMouse = Vector2Int.RoundToInt(mousePos);
                 
 
-                if (roundedMouse.x > 18)
+                if (roundedMouse.x > xval)
                 {
-                    GameObject square = Instantiate(Cube, new Vector3(18, roundedMouse.y), Quaternion.identity);
+                    GameObject square = Instantiate(Cube, new Vector3(xval, roundedMouse.y), Quaternion.identity);
                     square.transform.parent = cubesParent.transform;
                     spawn = "right";
                     AheadTime = Time.time + 1f;
                     allBoxes = GameObject.FindGameObjectsWithTag("Player");
                 }
-                else if (roundedMouse.y > 6)
+                else if (roundedMouse.y > yval)
                 {
-                    GameObject square = Instantiate(Cube, new Vector3(roundedMouse.x, 7), Quaternion.identity);
+                    GameObject square = Instantiate(Cube, new Vector3(roundedMouse.x, yval), Quaternion.identity);
                     square.transform.parent = cubesParent.transform;
                     spawn = "up";
                     AheadTime = Time.time + 1f;
                     allBoxes = GameObject.FindGameObjectsWithTag("Player");
                 }
-                else if (roundedMouse.x < -18)
+                else if (roundedMouse.x < -xval)
                 {
-                    GameObject square = Instantiate(Cube, new Vector3(-18, roundedMouse.y), Quaternion.identity);
+                    GameObject square = Instantiate(Cube, new Vector3(-xval, roundedMouse.y), Quaternion.identity);
                     square.transform.parent = cubesParent.transform;
                     spawn = "left";
 
                     AheadTime = Time.time + 1f;
                     allBoxes = GameObject.FindGameObjectsWithTag("Player");
                 }
-                else if (roundedMouse.y < -6)
+                else if (roundedMouse.y < -yval)
                 {
-                    GameObject square = Instantiate(Cube, new Vector3(roundedMouse.x, -7), Quaternion.identity);
+                    GameObject square = Instantiate(Cube, new Vector3(roundedMouse.x, -yval), Quaternion.identity);
                     square.transform.parent = cubesParent.transform;
                     spawn = "down";
 

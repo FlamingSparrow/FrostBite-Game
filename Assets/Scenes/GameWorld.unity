@@ -379,6 +379,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cube: {fileID: 2414285437819565050, guid: ab9ce84d639735d468acb9b92aaffd14, type: 3}
   set: 
+  xval: 16
+  yval: 6
   Canon: {fileID: 0}
   allBoxes: []
   cubesParent: {fileID: 80212801}
@@ -1791,6 +1793,10 @@ PrefabInstance:
       propertyPath: m_Parameters.textureMode
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 9020445155565274301, guid: 6dfc5477ef6b07341978c220017fad77, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 844394021}
     - target: {fileID: 9020445157070712357, guid: 6dfc5477ef6b07341978c220017fad77, type: 3}
       propertyPath: m_RootOrder
       value: 8
