@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MoveSquare : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class MoveSquare : MonoBehaviour
     BoxCollider2D bx;
 
     GameObject Manager;
-
+    bool finished = false;
 
     // Start is called before the first frame update
     void Start()
@@ -128,8 +129,39 @@ public class MoveSquare : MonoBehaviour
         {
             Manager.GetComponent<GameManager>().GameOver = true;
         }
+        
     }
 
+    private IEnumerator OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Finish")
+        {
+            finished = true;
+            yield return new WaitForSeconds(0.5f);
+            if (finished)
+            {
+                print("Finsih");
+                if (SceneManager.sceneCount - 1 >= SceneManager.GetActiveScene().buildIndex + 1)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                }
+                else
+                {
+                    SceneManager.LoadScene(0);
+                }
+            }
+            
+
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Finish")
+        {
+            finished = false;
+        }
+    }
     IEnumerator becomeKinematic()
     {
         yield return new WaitForSeconds(0.5f);

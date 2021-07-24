@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
             if (gameOver)
             {
                 Debug.Log("GameOver");
+                Cursor.lockState = CursorLockMode.Locked;
+                GameOverCanvas.gameObject.SetActive(true);
             }
         }
     }
@@ -110,9 +112,9 @@ public class GameManager : MonoBehaviour
                 //Cursor.visible = false;
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2Int roundedMouse = Vector2Int.RoundToInt(mousePos);
-                Debug.Log(roundedMouse);
+                
 
-                if (roundedMouse.x > 14)
+                if (roundedMouse.x > 18)
                 {
                     GameObject square = Instantiate(Cube, new Vector3(18, roundedMouse.y), Quaternion.identity);
                     square.transform.parent = cubesParent.transform;
@@ -120,7 +122,7 @@ public class GameManager : MonoBehaviour
                     AheadTime = Time.time + 1f;
                     allBoxes = GameObject.FindGameObjectsWithTag("Player");
                 }
-                else if (roundedMouse.y > 4)
+                else if (roundedMouse.y > 6)
                 {
                     GameObject square = Instantiate(Cube, new Vector3(roundedMouse.x, 7), Quaternion.identity);
                     square.transform.parent = cubesParent.transform;
@@ -128,7 +130,7 @@ public class GameManager : MonoBehaviour
                     AheadTime = Time.time + 1f;
                     allBoxes = GameObject.FindGameObjectsWithTag("Player");
                 }
-                else if (roundedMouse.x < -14)
+                else if (roundedMouse.x < -18)
                 {
                     GameObject square = Instantiate(Cube, new Vector3(-18, roundedMouse.y), Quaternion.identity);
                     square.transform.parent = cubesParent.transform;
@@ -137,7 +139,7 @@ public class GameManager : MonoBehaviour
                     AheadTime = Time.time + 1f;
                     allBoxes = GameObject.FindGameObjectsWithTag("Player");
                 }
-                else if (roundedMouse.y < -4)
+                else if (roundedMouse.y < -6)
                 {
                     GameObject square = Instantiate(Cube, new Vector3(roundedMouse.x, -7), Quaternion.identity);
                     square.transform.parent = cubesParent.transform;
