@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,20 +18,23 @@ public class GameManager : MonoBehaviour
     public GameObject cubesParent;
     public String spawn;
     public bool gameOver;
-
+    public int blockCount;
     float AheadTime;
+    public TextMeshProUGUI blockScore;
 
     private void Start()
     {
         AheadTime = Time.time;
         gameOver = false;
+        blockCount = 1;
+        blockScore.text = "1";
     }
 
     private void Update()
     {
         CheckMovement();
         allBoxes = GameObject.FindGameObjectsWithTag("Player");
-        
+        blockScore.text = "Score: " + blockCount;
     }
 
     private void CheckMovement()

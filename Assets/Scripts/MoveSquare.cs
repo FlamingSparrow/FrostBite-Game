@@ -83,20 +83,24 @@ public class MoveSquare : MonoBehaviour
             if (spawn.Equals("up"))
             {
                 Manager.GetComponent<GameManager>().cubesParent.transform.position += new Vector3(0,-1,0);
+                Manager.GetComponent<GameManager>().blockCount += 1;
             }
             if (spawn.Equals("down"))
             {
                 Manager.GetComponent<GameManager>().cubesParent.transform.position += new Vector3(0,1,0);
+                Manager.GetComponent<GameManager>().blockCount += 1;
             }
 
             if (spawn.Equals("right"))
             {
                 Manager.GetComponent<GameManager>().cubesParent.transform.position += new Vector3(-1,0,0);
+                Manager.GetComponent<GameManager>().blockCount += 1;
             }
 
             if (spawn.Equals("left"))
             {
                 Manager.GetComponent<GameManager>().cubesParent.transform.position +=new Vector3(1,0,0);
+                Manager.GetComponent<GameManager>().blockCount += 1;
             }
         }
 
