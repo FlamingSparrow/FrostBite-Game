@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveSquare : MonoBehaviour
 {
-    [SerializeField] float speed = 5f;
+   
     bool beforeHit = true;
     string spawn = "";
     Rigidbody2D rb2d;
@@ -25,7 +25,7 @@ public class MoveSquare : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         spawn = Manager.GetComponent<GameManager>().spawn;
         SquareSpawned();
@@ -54,19 +54,19 @@ public class MoveSquare : MonoBehaviour
 
         if (spawn.Equals("up") && beforeHit)
         {
-            transform.position += Vector3.down * 0.1f;
+            transform.position += Vector3.down * 0.5f;
         }
         else if (spawn.Equals("down") && beforeHit)
         {
-            transform.position += Vector3.up * 0.1f;
+            transform.position += Vector3.up * 0.5f;
         }
         else if (spawn.Equals("right") && beforeHit)
         {
-            transform.position += Vector3.left * 0.1f;
+            transform.position += Vector3.left * 0.5f;
         }
         else if (spawn.Equals("left") && beforeHit)
         {
-            transform.position += Vector3.right * 0.1f;
+            transform.position += Vector3.right * 0.5f;
         }
 
     }
@@ -112,11 +112,11 @@ public class MoveSquare : MonoBehaviour
             item.transform.position = new Vector3(Mathf.RoundToInt(item.transform.position.x),Mathf.RoundToInt(item.transform.position.y),Mathf.RoundToInt(item.transform.position.z));
             if (Mathf.Abs(item.transform.position.x) > 9)
             {
-                Manager.GetComponent<GameManager>().gameOver = true;
+                Manager.GetComponent<GameManager>().GameOver = true;
             }
             if (Mathf.Abs(item.transform.position.y) > 9)
             {
-                Manager.GetComponent<GameManager>().gameOver = true;
+                Manager.GetComponent<GameManager>().GameOver = true;
             }
         }
 
@@ -126,7 +126,7 @@ public class MoveSquare : MonoBehaviour
     {
         if (other.tag == "enemy")
         {
-            Manager.GetComponent<GameManager>().gameOver = true;
+            Manager.GetComponent<GameManager>().GameOver = true;
         }
     }
 
