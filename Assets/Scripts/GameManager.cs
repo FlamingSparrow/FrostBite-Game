@@ -14,12 +14,16 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public Transform Canon;
     public GameObject[] allBoxes;
+    public GameObject cubesParent;
+    public String spawn;
+    public bool gameOver;
 
     float AheadTime;
 
     private void Start()
     {
         AheadTime = Time.time;
+        gameOver = false;
     }
 
     private void Update()
@@ -36,6 +40,8 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 GameObject square = Instantiate(Cube, new Vector3(0, 10), Quaternion.identity);
+                square.transform.parent = cubesParent.transform;
+                spawn = "up";
                 
                 AheadTime = Time.time + 1f;
 
@@ -43,18 +49,24 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.A))
             {
                 GameObject square = Instantiate(Cube, new Vector3(-10, 0), Quaternion.identity);
+                square.transform.parent = cubesParent.transform;
+                spawn = "left";
                 
                 AheadTime = Time.time + 1f;
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 GameObject square = Instantiate(Cube, new Vector3(0, -10), Quaternion.identity);
+                square.transform.parent = cubesParent.transform;
+                spawn = "down";
                 
                 AheadTime = Time.time + 1f;
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
                 GameObject square = Instantiate(Cube, new Vector3(10, 0), Quaternion.identity);
+                square.transform.parent = cubesParent.transform;
+                spawn = "right";
                
                 AheadTime = Time.time + 1f;
             }

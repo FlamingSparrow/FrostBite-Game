@@ -27,11 +27,13 @@ public class MoveSquare : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        spawn = Manager.GetComponent<GameManager>().spawn;
         SquareSpawned();
     }
 
     void SquareSpawned()
     {
+        /*
         if (transform.position.y == 10)
         {
             spawn = "up";
@@ -48,7 +50,7 @@ public class MoveSquare : MonoBehaviour
         {
             spawn = "left";
         }
-
+        */
         Debug.Log(spawn);
 
         if (spawn.Equals("up") && beforeHit)
@@ -68,41 +70,57 @@ public class MoveSquare : MonoBehaviour
             transform.position += Vector3.right * 0.1f;
         }
 
-
-
-
-
     }
 
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        beforeHit = false;
-
-        foreach (GameObject item in Manager.GetComponent<GameManager>().allBoxes)
+        if (beforeHit)
         {
+            beforeHit = false;
+
             if (spawn.Equals("up"))
             {
-                item.transform.position += Vector3.down;
+                Manager.GetComponent<GameManager>().cubesParent.transform.position += new Vector3(0,-1,0);
             }
             if (spawn.Equals("down"))
             {
-                item.transform.position += Vector3.up;
+                Manager.GetComponent<GameManager>().cubesParent.transform.position += new Vector3(0,1,0);
             }
 
             if (spawn.Equals("right"))
             {
-                item.transform.position += Vector3.left;
+                Manager.GetComponent<GameManager>().cubesParent.transform.position += new Vector3(-1,0,0);
             }
 
             if (spawn.Equals("left"))
             {
-                item.transform.position += Vector3.right;
+                Manager.GetComponent<GameManager>().cubesParent.transform.position +=new Vector3(1,0,0);
             }
-            
         }
 
+        StartCoroutine(becomeKinematic());
+        
+        foreach (GameObject item in Manager.GetComponent<GameManager>().allBoxes)
+        {
+            item.transform.position = new Vector3(Mathf.RoundToInt(item.transform.position.x),Mathf.RoundToInt(item.transform.position.y),Mathf.RoundToInt(item.transform.position.z));
+            if (Mathf.Abs(item.transform.position.x) > 9)
+            {
+                Manager.GetComponent<GameManager>().gameOver = true;
+            }
+            if (Mathf.Abs(item.transform.position.y) > 9)
+            {
+                Manager.GetComponent<GameManager>().gameOver = true;
+            }
+        }
+
+    }
+
+    IEnumerator becomeKinematic()
+    {
+        yield return new WaitForSeconds(0.5f);
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
     }
 
 }
