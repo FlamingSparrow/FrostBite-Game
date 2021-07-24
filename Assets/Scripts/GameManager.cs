@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
             if (gameOver)
             {
                 Debug.Log("GameOver");
-                Cursor.lockState = CursorLockMode.Locked;
                 SceneManager.LoadScene(SceneManager.sceneCount - 1);
             }
         }
