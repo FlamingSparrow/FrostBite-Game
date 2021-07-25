@@ -12,7 +12,7 @@ public class MoveSquare : MonoBehaviour
     BoxCollider2D bx;
 
     GameObject Manager;
-    bool finished = false;
+    public bool finished = false;
     bool dead = false;
 
     // Start is called before the first frame update
@@ -84,24 +84,24 @@ public class MoveSquare : MonoBehaviour
             if (spawn.Equals("up"))
             {
                 Manager.GetComponent<GameManager>().cubesParent.transform.position += new Vector3(0,-1,0);
-                Manager.GetComponent<GameManager>().blockCount += 1;
+                Manager.GetComponent<GameManager>().blocksLeft -= 1;
             }
             if (spawn.Equals("down"))
             {
                 Manager.GetComponent<GameManager>().cubesParent.transform.position += new Vector3(0,1,0);
-                Manager.GetComponent<GameManager>().blockCount += 1;
+                Manager.GetComponent<GameManager>().blocksLeft -= 1;
             }
 
             if (spawn.Equals("right"))
             {
                 Manager.GetComponent<GameManager>().cubesParent.transform.position += new Vector3(-1,0,0);
-                Manager.GetComponent<GameManager>().blockCount += 1;
+                Manager.GetComponent<GameManager>().blocksLeft -= 1;
             }
 
             if (spawn.Equals("left"))
             {
                 Manager.GetComponent<GameManager>().cubesParent.transform.position +=new Vector3(1,0,0);
-                Manager.GetComponent<GameManager>().blockCount += 1;
+                Manager.GetComponent<GameManager>().blocksLeft -= 1;
             }
 
             Manager.GetComponent<AudioSource>().Play();
@@ -119,15 +119,15 @@ public class MoveSquare : MonoBehaviour
     
 
 
-    private IEnumerator OnTriggerStay2D(Collider2D collision)
+    private IEnumerator OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Finish")
         {
             finished = true;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
             if (finished)
             {
-                print("Finsih");
+                //print("Finsih");
                 if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 2)
                 {
                     SceneManager.LoadScene(0);
@@ -147,7 +147,7 @@ public class MoveSquare : MonoBehaviour
             if (gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Kinematic)
             {
                 dead = true;
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.2f);
                 if (dead)
                 {
                     Manager.GetComponent<GameManager>().GameOver = true;

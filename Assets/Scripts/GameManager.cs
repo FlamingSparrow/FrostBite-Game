@@ -9,25 +9,28 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject Cube;
 
+    public int blocksLeft = 8;
+
     public string set = "";
 
     public int xval = 13;
     public int yval = 7;
-    /// <summary>
-    /// To be implemented later
-    /// </summary>
-    public Transform Canon;
+    
     public GameObject[] allBoxes;
     public GameObject cubesParent;
     public String spawn;
     
-    public int blockCount;
+    
     float AheadTime;
     public TextMeshProUGUI blockScore;
+
 
     public Canvas GameOverCanvas;
 
     private bool gameOver;
+
+    float times;
+    bool timesb = true;
 
     public bool GameOver
     {
@@ -50,8 +53,8 @@ public class GameManager : MonoBehaviour
     {
         AheadTime = Time.time;
         GameOver = false;
-        blockCount = 1;
-        blockScore.text = "1";
+        
+        blockScore.text = "Blocks Remaining: " + blocksLeft.ToString();
 
         
     }
@@ -59,13 +62,26 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         CheckMovement();
-        blockScore.text = "Score: " + blockCount;
+        blockScore.text = "Blocks Remaining: " + blocksLeft.ToString();
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
-       // CheckDeath();
+        if (blocksLeft == 0)
+        {
+            if (timesb)
+            {
+                timesb = false;
+                times = Time.time + 1f;
+            }
+            else if (Time.time > times && !timesb)
+            {
+                GameOver = true;
+            }
+            
+        }
     }
+
 
     private void CheckMovement()
     {
@@ -120,8 +136,9 @@ public class GameManager : MonoBehaviour
                     GameObject square = Instantiate(Cube, new Vector3(xval, roundedMouse.y), Quaternion.identity);
                     square.transform.parent = cubesParent.transform;
                     spawn = "right";
-                    AheadTime = Time.time + 1f;
+                    AheadTime = Time.time + .2f;
                     allBoxes = GameObject.FindGameObjectsWithTag("Player");
+                    
                 }
                 else if (roundedMouse.y > yval)
                 {
@@ -158,7 +175,17 @@ public class GameManager : MonoBehaviour
         
     }
 
-
+    private void CheckDeath()
+    {
+        if (blocksLeft <= 0)
+        {
+            float time = Time.time + 1f;
+            if (blocksLeft == 0 && Time.time > time)
+            {
+                GameOver = true;
+            }
+        }
+    }
     
 }
 
