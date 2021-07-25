@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
             if (gameOver)
             {
                 Debug.Log("GameOver");
-                SceneManager.LoadScene(SceneManager.sceneCount - 1);
+                SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
             }
         }
     }

@@ -112,14 +112,6 @@ public class MoveSquare : MonoBehaviour
         foreach (GameObject item in Manager.GetComponent<GameManager>().allBoxes)
         {
             item.transform.position = new Vector3(Mathf.RoundToInt(item.transform.position.x),Mathf.RoundToInt(item.transform.position.y),Mathf.RoundToInt(item.transform.position.z));
-            if (Mathf.Abs(item.transform.position.x) > 9)
-            {
-                Manager.GetComponent<GameManager>().GameOver = true;
-            }
-            if (Mathf.Abs(item.transform.position.y) > 9)
-            {
-                Manager.GetComponent<GameManager>().GameOver = true;
-            }
         }
 
     }
@@ -136,14 +128,15 @@ public class MoveSquare : MonoBehaviour
             if (finished)
             {
                 print("Finsih");
-                if (SceneManager.sceneCount - 2 >= SceneManager.GetActiveScene().buildIndex + 1)
-                {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                }
-                else
+                if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 2)
                 {
                     SceneManager.LoadScene(0);
                 }
+                else
+                {
+                    SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex+1);
+                }
+                
             }
             
 
@@ -151,13 +144,17 @@ public class MoveSquare : MonoBehaviour
 
         if (collision.tag == "enemy")
         {
-            dead = true;
-            yield return new WaitForSeconds(0.5f);
-            if (dead)
+            if (gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Kinematic)
             {
-                Manager.GetComponent<GameManager>().GameOver = true;
+                dead = true;
+                yield return new WaitForSeconds(0.5f);
+                if (dead)
+                {
+                    Manager.GetComponent<GameManager>().GameOver = true;
+                }
+                
             }
-            
+
         }
     }
 
